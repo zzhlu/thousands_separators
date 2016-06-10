@@ -1,18 +1,20 @@
 'use strict';
 
 function thousands_separators(number) {
-
     var number = number.toString();
 
     if (number.indexOf('.') === -1) {
-        return numberHasNotPoint(number);
-    } else {
-        return numberHasPoint(number);
+
+        return numberIsInteger(number);
+    }
+    else {
+        var number = number.split('.');
+
+        return numberIsInteger(number[0]) + '.' + number[1];
     }
 }
 
-function numberHasNotPoint(number) {
-
+function numberIsInteger(number) {
     var result = '';
 
     while (number.length > 3) {
@@ -21,22 +23,6 @@ function numberHasNotPoint(number) {
     }
     if (number) {
         result = number + result;
-    }
-
-    return result;
-}
-
-function numberHasPoint(number) {
-
-    var array = number.split('.');
-    var result = '';
-
-    while (array[0].length > 3) {
-        result += ',' + array[0].slice(-3);
-        array[0] = array[0].slice(0, array[0].length - 3);
-    }
-    if (array[0]) {
-        result = array[0] + result + '.' + array[1];
     }
 
     return result;
